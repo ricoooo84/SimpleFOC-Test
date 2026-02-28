@@ -1,0 +1,15 @@
+# PlatformIO build folder
+.pio/
+
+# Compiled object files
+*.o
+*.elf
+*.bin
+*.hex
+
+# IDE files (VSCode, etc.)
+.vscode/
+*.code-workspace
+
+# Environment files
+.env

@@ -1,0 +1,44 @@
+#include <Arduino.h>
+#include <Wire.h>
+
+const uint8_t SDApin1 = 20, SCLpin1 = 21, picoAddr = 0x08;
+String inputBuffer = "";
+const uint8_t testPin = 28;
+
+volatile uint16_t valueToSend = 0;
+
+void onRequest() {
+    uint8_t buf[2];
+    buf[0] = valueToSend & 0xFF;
+    buf[1] = (valueToSend >> 8) & 0xFF;
+    Wire.write(buf, 2);
+}
+
+void setup() {
+    pinMode(testPin, OUTPUT);
+    
+    Serial.begin(115200);
+
+    Wire.setSDA(SDApin1);
+    Wire.setSCL(SCLpin1);
+    Wire.begin(picoAddr);
+    Wire.onRequest(onRequest);
+}
+
+void loop() {
+    if (Serial.available()) {
+        String input = Serial.readStringUntil('\n');
+        input.trim();
+
+        if (input.length() > 0) {
+            long inputNum = input.toInt();
+
+            if (inputNum >= 0 && inputNum <= 65535) {
+                valueToSend = (uint16_t)inputNum;
+                digitalWrite(testPin, HIGH);
+                delay(1000);
+                digitalWrite(testPin,LOW);
+            }
+        }
+    }
+}
