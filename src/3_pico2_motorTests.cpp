@@ -12,6 +12,7 @@ DCDriver2PWM driver = DCDriver2PWM(IN1pin, IN2pin, ENpin);
 Adafruit_VL53L0X sensor;
 
 // will motor even move
+// result: yes
 void sanityTest() {
     digitalWrite(testPin, HIGH);
     delay(1000);
@@ -27,6 +28,7 @@ void sanityTest() {
 }
 
 // observe how fast it responds to voltage, if theres "stall" voltage
+// result: motor needs ~4 V to move
 void stepTest() {
     float voltage;
     digitalWrite(testPin,HIGH);
@@ -49,6 +51,7 @@ void stepTest() {
 }
 
 // try to simulate acceleration
+// result: i didnt try this
 void rampTest() {
     float voltage;
     digitalWrite(testPin,HIGH);
@@ -71,6 +74,7 @@ void rampTest() {
 }
 
 // control motor with serial commands
+// result: yes
 void serialControl() {
     float voltage = 0;
     digitalWrite(testPin,HIGH);
@@ -87,6 +91,7 @@ void serialControl() {
 }
 
 // control motor with time of flight input
+// result: yes
 void tofSanity() {
     uint16_t distance = 0;
     VL53L0X_RangingMeasurementData_t measure;
@@ -104,6 +109,7 @@ void tofSanity() {
 }
 
 // stop motor if close distances detected
+// result: yes, this was a lot smoother than expected
 void tofProximity() {
     uint16_t distance = 0;
     VL53L0X_RangingMeasurementData_t measure;
