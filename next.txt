@@ -1,0 +1,13 @@
+Next:
+Watchdog Timer
+Separate ToF and motor picos
+Motor controlled by i2c commands
+Motor controlled by xbox/keyboard controls
+
+Understand Pi code
+Handle bad (ToF) readings (lpf?)
+
+Maybe:
+Interrupts
+Communication failure
+PID Control
