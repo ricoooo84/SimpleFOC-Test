@@ -118,7 +118,7 @@ void tofProximity() {
 
     Serial.println(distance);
 
-    float voltage = (distance - 50)/250.0*12.0f;
+    float voltage = (distance - 50)/250.0*driver.voltage_limit;
     driver.setPwm(voltage);
 
     delay(50);
@@ -145,8 +145,8 @@ void setup() {
         delay(1000);
     }
 
-    driver.voltage_power_supply = 9.0f;
-    driver.voltage_limit = 9.0f;
+    driver.voltage_power_supply = 18.0f;
+    driver.voltage_limit = 18.0f;
     driver.pwm_frequency = 20000;
     driver.init();
     driver.enable();
