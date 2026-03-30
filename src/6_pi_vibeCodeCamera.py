@@ -1,0 +1,29 @@
+# I DID NOT WRITE THIS (made by Claude)
+# THIS IS FOR PROOF OF CONCEPT
+
+import cv2
+from flask import Flask, Response
+
+app = Flask(__name__)
+cap = cv2.VideoCapture(0)
+
+def generate():
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame_bytes = buffer.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+@app.route('/video')
+def video():
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+app.run(host='0.0.0.0', port=5000)
+```
+
+Then on your laptop just open a browser and go to:
+```
+http://<pi-ip-address>:5000/video
