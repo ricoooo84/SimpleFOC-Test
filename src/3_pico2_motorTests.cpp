@@ -158,8 +158,8 @@ void loop() {
     // sanityTest();
     // stepTest();
     // rampTest();
-    // serialControl();
+    serialControl();
     // tofSanity();
-    tofProximity();
+    // tofProximity();
     // watchdogTest();
 }
